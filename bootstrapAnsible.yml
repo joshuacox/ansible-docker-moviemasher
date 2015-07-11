@@ -2,7 +2,7 @@
 - name: bootstrap Ansible on debian/ubuntu
   vars:
      NAME_contents: "{{ lookup('file', 'NAME') }}"
-  gather_facts: False
   hosts: "{{ NAME_contents }}"
+  gather_facts: False
   tasks:
-  - script: bootstrapansible.sh  creates=/home/rancher/consoled.txt
+  - script: bootstrapansible.sh  creates=/home/root/ansiblebootstrapped.txt

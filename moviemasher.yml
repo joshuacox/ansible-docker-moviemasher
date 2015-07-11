@@ -1,6 +1,5 @@
 ---
 - name: MovieMasher
-  hosts: moviemasher
   vars:
      port_contents: "{{ lookup('file', 'port') }}"
      NAME_contents: "{{ lookup('file', 'NAME') }}"
@@ -15,8 +14,10 @@
       restart_policy: always
       ports:
       - "{{ port_contents }}"
+      volumes:
+      - /exports/moviemasher/www:/var/www
+      - /exports/moviemasher/tmp:/tmp
 
-  tasks:
   - name: MovieMasher processor
     docker:
       name: moviemasher

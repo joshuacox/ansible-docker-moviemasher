@@ -10,6 +10,11 @@ server: port serverplay
 serverplay:
 	ansible-playbook moviemasher.yml
 
+prep: bootstrap docker
+
+docker:
+	ansible-playbook docker.yml
+
 bootstrap:
 	ansible-playbook bootstrapAnsible.yml
 
