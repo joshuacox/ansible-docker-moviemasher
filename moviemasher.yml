@@ -1,0 +1,30 @@
+---
+- name: MovieMasher
+  hosts: moviemasher
+  vars:
+     port_contents: "{{ lookup('file', 'port') }}"
+     NAME_contents: "{{ lookup('file', 'NAME') }}"
+  hosts: "{{ NAME_contents }}"
+  sudo: True
+  tasks:
+  - name: MovieMasher Angular interface
+    docker:
+      name: angular
+      image: moviemasher/angular-moviemasher
+      state: reloaded
+      restart_policy: always
+      ports:
+      - "{{ port_contents }}"
+
+  tasks:
+  - name: MovieMasher processor
+    docker:
+      name: moviemasher
+      image: moviemasher/moviemasher.rb
+      tty: True
+      state: reloaded
+      restart_policy: always
+      command: "process_loop"
+      volumes_from:
+      - angular
+

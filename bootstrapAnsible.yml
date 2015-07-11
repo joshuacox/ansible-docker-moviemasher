@@ -1,0 +1,8 @@
+---
+- name: bootstrap Ansible on debian/ubuntu
+  vars:
+     NAME_contents: "{{ lookup('file', 'NAME') }}"
+  gather_facts: False
+  hosts: "{{ NAME_contents }}"
+  tasks:
+  - script: bootstrapansible.sh  creates=/home/rancher/consoled.txt
